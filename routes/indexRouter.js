@@ -25,6 +25,15 @@ indexRouter.get("/new", (req, res) => {
 
 indexRouter.post("/new", (req, res) => {
     const { user, text } = req.body;
+    
+    // Validate message length
+    if (text && text.length > 150) {
+        return res.render("form", { 
+            title: "New Message",
+            error: "Message must be 150 characters or less"
+        });
+    }
+    
     messages.push({ text, user, added: new Date() });
     res.redirect("/");
 });

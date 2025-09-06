@@ -1,11 +1,58 @@
+<!DOCTYPE html>
 <html>
-    <body>
-        <h1><%= title %></h1>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <h1><%= title %></h1>
 
-        <form method="POST" action="/new">
-            <input type="text" name="user" placeholder="Your name">
-            <input type="text" name="text" placeholder="Your message">
-            <button type="submit">Send</button>
-        </form>
-    </body>
+    <% if (typeof error !== 'undefined') { %>
+      <div class="error-message">
+        <%= error %>
+      </div>
+    <% } %>
+
+    <div class="card">
+      <form method="POST" action="/new">
+        <div class="form-group">
+          <label for="user">Your Name</label>
+          <input type="text" id="user" name="user" required>
+        </div>
+
+        <div class="form-group">
+          <label for="text">Message</label>
+          <textarea id="text" name="text" required maxlength="150" placeholder="Share your thoughts..."></textarea>
+          <div class="char-counter">
+            <span id="char-count">0</span>/150 characters
+          </div>
+        </div>
+
+        <button type="submit">Send</button>
+      </form>
+    </div>
+
+    <div class="actions">
+      <a href="/">Back to messages</a>
+    </div>
+
+    <script>
+      const textarea = document.getElementById('text');
+      const charCount = document.getElementById('char-count');
+      
+      textarea.addEventListener('input', function() {
+        const length = this.value.length;
+        charCount.textContent = length;
+        
+        // Change color as approaching limit
+        if (length > 130) {
+          charCount.style.color = '#d4a574';
+        } else if (length > 140) {
+          charCount.style.color = '#b8956a';
+        } else {
+          charCount.style.color = '#8b7355';
+        }
+      });
+    </script>
+  </body>
 </html>

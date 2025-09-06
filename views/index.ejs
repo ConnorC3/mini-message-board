@@ -1,19 +1,25 @@
 <html>
-    <head>
-        <title>Mini Message Board</title>
-    </head>
-    <body>
-        <h1><%= title %></h1>
-        <ul>
-            <% messages.forEach(msg => { %>
-                <li>
-                    <strong><%= msg.user %></strong>: <%= msg.text %>
-                    <br>
-                    <small><%= msg.added.toLocaleString() %></small>
-                </li>
-            <% }); %>
-        </ul>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <h1><%= title %></h1>
 
-        <a href="/new">Send a Message</a>
-    </body>
+    <div class="actions">
+      <a href="/new">Add a new message</a>
+    </div>
+    
+    <div class="card-container">
+      <% messages.forEach((msg, i) => { %>
+        <div class="card">
+          <strong><%= msg.user %></strong>
+          <p><%= msg.text %></p>
+          <small><%= msg.added.toLocaleString() %></small>
+          <br><br>
+          <!-- <a href="/message/<%= i %>">Open</a> -->
+        </div>
+      <% }); %>
+    </div>
+  </body>
 </html>
